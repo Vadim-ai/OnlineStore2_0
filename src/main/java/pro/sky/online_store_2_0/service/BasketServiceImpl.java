@@ -7,7 +7,7 @@ import pro.sky.online_store_2_0.Basket;
 import java.util.*;
 
 @Service
-@Scope("prototype")
+@Scope(scopeName = "prototype")
 
 public class BasketServiceImpl implements BasketService {
 
