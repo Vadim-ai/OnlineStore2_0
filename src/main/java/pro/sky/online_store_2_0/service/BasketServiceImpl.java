@@ -7,7 +7,6 @@ import java.util.*;
 @Service
 @SessionScope
 public class BasketServiceImpl implements BasketService {
-
     private Map<String, Integer> basket =new HashMap<>();
 
     @Override
