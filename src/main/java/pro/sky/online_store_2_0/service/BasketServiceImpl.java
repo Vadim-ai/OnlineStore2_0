@@ -1,33 +1,35 @@
 package pro.sky.online_store_2_0.service;
-
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import pro.sky.online_store_2_0.Basket;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.*;
 
 @Service
-@Scope("prototype")
-
+@SessionScope
 public class BasketServiceImpl implements BasketService {
-
-
-    public Map<String, Basket> getItems() {
-        return items;
-    }
-
-    private Map <String, Basket> items  = new HashMap<>();
-
+    private Map<String, Integer> basket =new HashMap<>();
 
     @Override
-    public Basket addInBasket(String nameOfProduct, int id, int price) {
-            Basket item = new Basket(nameOfProduct, price, id);
-            items.put(item.getNameOfProduct(),item);
-            return item;
+    public String addItems (List<String> items) {
+        StringBuilder sb = new StringBuilder();
+        for (String id: items)
+        {if (basket.containsKey(id))
+        {
+            basket.put(id, (basket.get(id)+1));
+        }
+        else
+        {basket.put( id, 1);}
+            sb.append(" Item " +id+ " added. ");
+        }
+        return sb.toString();
+
     }
 
     @Override
-    public List <Basket> getListOfBasket() {
-        return new ArrayList<>(items.values());
+    public List<Map.Entry<String, Integer>> getItems() {
+        List<Map.Entry<String,Integer>> itemsList = new ArrayList<>(basket.entrySet());
+        return itemsList;
+
+
     }
 }
